@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace BeehiveManagementSystem
 {
-    class Queen : Bee
+    class Queen : Bee, INotifyPropertyChanged
     {
         private IWorker[] workers = new IWorker[0];
 
@@ -15,6 +16,13 @@ namespace BeehiveManagementSystem
 
         private float eggs = 0;
         private float unassignedWorkers = 3;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
 
         public string StatusReport { get; private set; }
         public  override float CostPerShift
@@ -48,7 +56,9 @@ namespace BeehiveManagementSystem
                 $"Vault report:\n{HoneyVault.StatusReport}\n" +
                 $"\nEgg count: {eggs:0.0}\nUnassigned workers: {unassignedWorkers:0.0}\n" +
                 $"{WorkerStatus("Nectar Collector")}\n{WorkerStatus("Honey Manufacturer")}\n{WorkerStatus("Egg Care")}\n" +
-                $"Total workers: {workers.Length}";                            
+                $"Total workers: {workers.Length}";
+
+            OnPropertyChanged("StatusReport");
         }
 
         public void CareForEggs(float eggsToConvert)

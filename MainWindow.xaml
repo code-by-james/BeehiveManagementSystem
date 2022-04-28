@@ -6,7 +6,12 @@
         xmlns:local="clr-namespace:BeehiveManagementSystem"
         mc:Ignorable="d"
         Title="Beehive Management System" Height="325" Width="625">
-    <Grid>
+
+    <Window.Resources>
+        <local:Queen x:Key="queen"/>
+    </Window.Resources>
+    
+    <Grid DataContext="{StaticResource queen}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -29,7 +34,7 @@
             <Button Content="Assign this job to a bee" FontSize="18" Click="AssignJob_Click" Padding="20,5"/>
         </StackPanel>
         <Button Padding="20,5" Content="Work The Next Shift" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" FontSize="18" Click="WorkShift_Click" Margin="20"/>
-        <TextBox x:Name="statusReport" Grid.Column="1" HorizontalAlignment="Center" Height="180" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="216" IsReadOnly="True" Margin="46.4,37.2,46.4,41.2" Grid.RowSpan="2"/>
+        <TextBox Text="{Binding StatusReport, Mode=OneWay}" x:Name="statusReport" Grid.Column="1" HorizontalAlignment="Center" Height="180" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="216" IsReadOnly="True" Margin="46.4,37.2,46.4,41.2" Grid.RowSpan="2"/>
 
     </Grid>
 </Window>
